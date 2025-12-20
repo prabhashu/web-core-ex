@@ -82,6 +82,19 @@ export default function Home() {
     visible: { transition: { staggerChildren: 0.15 } }
   };
 
+  // Floating animation for icons
+  const floatingIcon = {
+    animate: {
+      y: [0, -20, 0],
+      rotate: [0, 5, -5, 0],
+      transition: {
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
   return (
     <>
       <SEO
@@ -91,23 +104,39 @@ export default function Home() {
 
       <div className="min-h-screen overflow-x-hidden">
 
-        {/* HERO SECTION - Updated for LCP Performance */}
-        <section className="relative min-h-screen flex items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-20 px-4">
+        {/* HERO SECTION - REVISED FOR BETTER SPACING */}
+        <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-20 px-4 overflow-hidden">
           
+          {/* 1. BACKGROUND GRID (Fills empty space with texture) */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+
+          {/* 2. GLOWING ORBS (Fills empty space with color) */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[128px] animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-[128px] animate-pulse delay-1000"></div>
+
+          {/* 3. FLOATING ICONS (Fills empty space with motion) */}
+          <motion.div variants={floatingIcon} animate="animate" className="absolute top-1/3 left-[10%] text-cyan-400/20 hidden lg:block">
+            <FaReact size={120} />
+          </motion.div>
+          <motion.div variants={floatingIcon} animate="animate" transition={{ delay: 1 }} className="absolute bottom-1/3 right-[10%] text-green-400/20 hidden lg:block">
+            <FaNodeJs size={120} />
+          </motion.div>
+
           {/* BACKGROUND IMAGE & OVERLAY */}
           <div className="absolute inset-0 -z-10">
-            {/* Direct reference to public folder image for speed */}
-            <img 
-              src="/hero-bg.webp" 
-              alt="Web Core EX Digital Agency Background" 
-              className="w-full h-full object-cover"
-              // @ts-ignore
-              fetchPriority="high" 
-              width="1920"
-              height="1080"
-            />
-            {/* Dark overlay to ensure text readability */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/85 to-purple-900/90"></div>
+            <picture>
+              <source media="(max-width: 768px)" srcSet="/hero-mobile.jpg" />
+              <img 
+                src="/hero.jpg" 
+                alt="Web Core EX Digital Agency Background" 
+                className="w-full h-full object-cover"
+                // @ts-ignore
+                fetchPriority="high" 
+                width="1920"
+                height="1080"
+              />
+            </picture>
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-900/90 to-purple-900/95"></div>
           </div>
 
           <div className="max-w-7xl mx-auto w-full text-center relative z-10">
@@ -115,64 +144,69 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="glass-card p-6 sm:p-12 md:p-16 rounded-3xl border border-white/10"
+              className="glass-card p-8 sm:p-12 md:p-16 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden"
             >
-              <div className="inline-block px-4 sm:px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
-                Trusted by 150+ Startups Worldwide
-              </div>
+              {/* Subtle sheen effect inside card */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none"></div>
 
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 text-white leading-tight">
-                Launch Your <br className="md:hidden" />
-                <TypeAnimation
-                  sequence={[
-                    'Vision.', 3000,
-                    'Startup.', 3000,
-                    'Future.', 3000,
-                    'Brand.', 3000,
-                  ]}
-                  wrapper="span"
-                  speed={20}
-                  repeat={Infinity}
-                  className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
-                />
-                <br />
-                Scale Globally.
-              </h1>
+              <div className="relative z-10">
+                <div className="inline-block px-4 sm:px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-semibold mb-6">
+                  Trusted by 150+ Startups Worldwide
+                </div>
 
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 mb-3 sm:mb-4 max-w-4xl mx-auto leading-relaxed px-2">
-                World-class Web Design & Digital Marketing solutions crafted by a
-                Sri Lankan powerhouse, built for global growth.
-              </p>
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white leading-tight tracking-tight">
+                  Launch Your <br className="md:hidden" />
+                  <TypeAnimation
+                    sequence={[
+                      'Vision.', 3000,
+                      'Startup.', 3000,
+                      'Future.', 3000,
+                      'Brand.', 3000,
+                    ]}
+                    wrapper="span"
+                    speed={20}
+                    repeat={Infinity}
+                    className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+                  />
+                  <br />
+                  Scale Globally.
+                </h1>
 
-              <p className="text-lg sm:text-xl md:text-2xl text-cyan-400 font-bold mb-6 sm:mb-8">
-                Silicon Valley Quality. Smart Pricing. 24/7 Support.
-              </p>
+                <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-6 max-w-3xl mx-auto leading-relaxed">
+                  World-class Web Design & Digital Marketing solutions crafted by a
+                  Sri Lankan powerhouse, built for global growth.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-2">
-                <Link to="/contact" className="w-full sm:w-auto">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-base sm:text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center gap-2"
-                  >
-                    Start Your Project <ArrowRight size={20} />
-                  </motion.button>
-                </Link>
-                <Link to="/portfolio" className="w-full sm:w-auto">
-                  <motion.button
-                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 rounded-full glass-card text-white font-semibold text-base sm:text-lg transition-all flex items-center justify-center gap-2 border border-white/20"
-                  >
-                    View Our Work <Award size={20} />
-                  </motion.button>
-                </Link>
-              </div>
+                <p className="text-lg sm:text-xl md:text-2xl text-cyan-400 font-bold mb-8">
+                  Silicon Valley Quality. Smart Pricing. 24/7 Support.
+                </p>
 
-              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-8 text-white/60 text-xs sm:text-sm px-2">
-                <div className="flex items-center justify-center gap-2"><CheckCircle size={16} className="text-green-400 flex-shrink-0" /><span>No Hidden Fees</span></div>
-                <div className="flex items-center justify-center gap-2"><CheckCircle size={16} className="text-green-400 flex-shrink-0" /><span>Money-Back Guarantee</span></div>
-                <div className="flex items-center justify-center gap-2"><CheckCircle size={16} className="text-green-400 flex-shrink-0" /><span>24/7 Support</span></div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                  <Link to="/contact" className="w-full sm:w-auto">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full sm:w-auto px-10 py-5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center gap-2"
+                    >
+                      Start Your Project <ArrowRight size={20} />
+                    </motion.button>
+                  </Link>
+                  <Link to="/portfolio" className="w-full sm:w-auto">
+                    <motion.button
+                      whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full sm:w-auto px-10 py-5 rounded-full glass-card text-white font-semibold text-lg transition-all flex items-center justify-center gap-2 border border-white/20"
+                    >
+                      View Our Work <Award size={20} />
+                    </motion.button>
+                  </Link>
+                </div>
+
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-6 text-white/60 text-sm font-medium">
+                  <div className="flex items-center justify-center gap-2"><CheckCircle size={18} className="text-green-400" /><span>No Hidden Fees</span></div>
+                  <div className="flex items-center justify-center gap-2"><CheckCircle size={18} className="text-green-400" /><span>Money-Back Guarantee</span></div>
+                  <div className="flex items-center justify-center gap-2"><CheckCircle size={18} className="text-green-400" /><span>24/7 Support</span></div>
+                </div>
               </div>
             </motion.div>
           </div>
