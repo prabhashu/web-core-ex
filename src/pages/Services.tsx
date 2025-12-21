@@ -1,11 +1,29 @@
 import React, { useState } from 'react';
-import { Code, Palette, TrendingUp, Check, ArrowRight, Zap, Shield, Globe, Users, BarChart, Smartphone, Search, Mail, Video, FileText, Layers } from 'lucide-react';
+import { Code, Palette, TrendingUp, Check, ArrowRight, Zap, Shield, Globe, Users, BarChart, Smartphone, Search, Mail, Video, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// --- 1. CURRENCY DATA ---
+const currencies = {
+  USD: { symbol: '$', rate: 1, flag: '🇺🇸' },
+  GBP: { symbol: '£', rate: 0.79, flag: '🇬🇧' },
+  CAD: { symbol: 'CA$', rate: 1.36, flag: '🇨🇦' },
+  AUD: { symbol: 'AU$', rate: 1.52, flag: '🇦🇺' },
+  LKR: { symbol: 'LKR ', rate: 305, flag: '🇱🇰' },
+};
+
+type CurrencyKey = keyof typeof currencies;
+
 export default function Services() {
   const [activeTab, setActiveTab] = useState('All');
+  const [currency, setCurrency] = useState<CurrencyKey>('USD');
+
+  // --- 2. HELPER: PRICE CONVERTER ---
+  const getPrice = (usdAmount: number) => {
+    const converted = Math.round(usdAmount * currencies[currency].rate);
+    return `${currencies[currency].symbol}${converted.toLocaleString()}`;
+  };
 
   // --- Animation Variants ---
   const fadeInUp: any = {
@@ -54,13 +72,14 @@ export default function Services() {
     { icon: Mail, title: 'Email Marketing', desc: 'Nurture leads with targeted email campaigns' }
   ];
 
+  // Updated Add-ons to use Numbers for dynamic conversion
   const addOns = [
-    { name: 'SEO Optimization', price: '$500-$1,500/mo', desc: 'Improve search rankings and organic traffic' },
-    { name: 'Content Writing', price: '$300-$1,000/mo', desc: 'Blog posts, articles, and website copy' },
-    { name: 'Video Production', price: '$1,000-$3,000', desc: 'Professional video content for marketing' },
-    { name: 'Maintenance & Support', price: '$200-$800/mo', desc: 'Ongoing updates and technical support' },
-    { name: 'Hosting & Infrastructure', price: '$100-$500/mo', desc: 'Managed hosting and server management' },
-    { name: 'Training & Consultation', price: '$150-$300/hr', desc: 'Team training and strategic consultation' }
+    { name: 'SEO Optimization', min: 500, max: 1500, desc: 'Improve search rankings and organic traffic' },
+    { name: 'Content Writing', min: 300, max: 1000, desc: 'Blog posts, articles, and website copy' },
+    { name: 'Video Production', min: 1000, max: 3000, desc: 'Professional video content for marketing' },
+    { name: 'Maintenance & Support', min: 200, max: 800, desc: 'Ongoing updates and technical support' },
+    { name: 'Hosting & Infrastructure', min: 100, max: 500, desc: 'Managed hosting and server management' },
+    { name: 'Training & Consultation', min: 150, max: 300, desc: 'Team training and strategic consultation (per hr)' }
   ];
 
   const categories = ['All', 'Web Development', 'Design', 'Marketing', 'Add-ons'];
@@ -68,8 +87,8 @@ export default function Services() {
   return (
     <>
       <SEO 
-        title="Web Development & Marketing Services | Transparent Pricing for Startups"
-        description="View our pricing for MVP Development, UI/UX Design, and Social Media Marketing. Flexible retainer models designed for startups in the USA, UK, and Canada."
+        title="Web Development & Marketing Services | Transparent Pricing"
+        description="View our pricing for MVP Development, UI/UX Design, and Social Media Marketing. View costs in USD, GBP, CAD, AUD, or LKR."
       />
 
       <div className="min-h-screen pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8">
@@ -91,8 +110,28 @@ export default function Services() {
             <p className="text-base sm:text-xl text-white/80 max-w-3xl mx-auto px-4 mb-8">
               Everything your startup needs to launch, grow, and scale in one place
             </p>
+
+            {/* --- CURRENCY SWITCHER --- */}
+            <div className="flex justify-center mb-8">
+              <div className="glass-card p-1.5 rounded-xl flex items-center gap-1 border border-white/10 bg-gray-900/50 inline-flex">
+                <span className="text-white/60 text-xs font-medium pl-2 pr-2 hidden sm:block">Price in:</span>
+                {(Object.keys(currencies) as CurrencyKey[]).map((cur) => (
+                  <button
+                    key={cur}
+                    onClick={() => setCurrency(cur)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      currency === cur 
+                        ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/25' 
+                        : 'text-white/50 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {cur} {currencies[cur].flag}
+                  </button>
+                ))}
+              </div>
+            </div>
             
-            {/* --- NEW: Filter Tabs --- */}
+            {/* Filter Tabs */}
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               {categories.map((cat) => (
                 <button
@@ -111,7 +150,7 @@ export default function Services() {
             <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto mt-8 sm:mt-10"></div>
           </motion.div>
 
-          {/* Content Wrapper with AnimatePresence for smooth transitions */}
+          {/* Content Wrapper */}
           <AnimatePresence mode='wait'>
             
             {/* --- WEB DEVELOPMENT SECTION --- */}
@@ -125,6 +164,7 @@ export default function Services() {
                 className="mb-16 sm:mb-32"
               >
                 <div className="glass-card p-6 sm:p-12 md:p-16 rounded-3xl">
+                  {/* ... Header Content ... */}
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0">
                       <Code size={32} className="sm:w-10 sm:h-10 text-white" />
@@ -136,7 +176,7 @@ export default function Services() {
                   </div>
 
                   <p className="text-sm sm:text-base md:text-lg text-white/80 mb-8 sm:mb-12 leading-relaxed text-center sm:text-left">
-                    We craft secure, mobile-responsive, and high-performance Minimum Viable Products (MVPs), e-commerce stores, and custom web applications. Our retainer model ensures continuous development and scaling as your startup grows.
+                    We craft secure, mobile-responsive, and high-performance Minimum Viable Products (MVPs), e-commerce stores, and custom web applications.
                   </p>
 
                   <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
@@ -152,11 +192,13 @@ export default function Services() {
                   </motion.div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                    {/* Web Pricing Cards */}
+                    {/* Web Pricing Cards - UPDATED WITH DYNAMIC CURRENCY */}
                     <motion.div whileHover={cardHover} className="glass-card p-6 sm:p-8 rounded-2xl">
                       <div className="text-xs sm:text-sm font-semibold text-gray-400 mb-2">SILVER</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">3 Page Website</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-cyan-400 mb-3 sm:mb-4">$400 <span className="text-base sm:text-lg text-white/60">- $1,500</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-cyan-400 mb-3 sm:mb-4">
+                        {getPrice(400)} <span className="text-base sm:text-lg text-white/60">- {getPrice(1500)}</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Entry-Level: Build Initial Presence</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         {['Up to 3 custom pages', 'Mobile responsive design', 'Basic SEO setup', 'Contact form integration', '2 rounds of revisions'].map((item, i) => (
@@ -170,10 +212,12 @@ export default function Services() {
                       <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold whitespace-nowrap">MOST POPULAR</div>
                       <div className="text-xs sm:text-sm font-semibold text-yellow-400 mb-2">GOLD</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">5 Page Website</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-cyan-400 mb-3 sm:mb-4">$800 <span className="text-base sm:text-lg text-white/60">- $3,500</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-cyan-400 mb-3 sm:mb-4">
+                         {getPrice(800)} <span className="text-base sm:text-lg text-white/60">- {getPrice(3500)}</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Mid-Level: Active Growth & Scaling</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-                        {['Up to 5 custom pages', 'Advanced animations & interactions', 'CMS integration', 'Advanced SEO optimization', 'Analytics & tracking setup', '4 rounds of revisions'].map((item, i) => (
+                        {['Up to 5 custom pages', 'Advanced animations', 'CMS integration', 'Advanced SEO optimization', 'Analytics & tracking setup', '4 rounds of revisions'].map((item, i) => (
                           <li key={i} className="flex items-start gap-2 text-white/80 text-xs sm:text-sm"><Check size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" /> <span>{item}</span></li>
                         ))}
                       </ul>
@@ -183,10 +227,12 @@ export default function Services() {
                     <motion.div whileHover={cardHover} className="glass-card p-6 sm:p-8 rounded-2xl">
                       <div className="text-xs sm:text-sm font-semibold text-purple-400 mb-2">PLATINUM</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Unlimited Pages</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-cyan-400 mb-3 sm:mb-4">$1,800 <span className="text-base sm:text-lg text-white/60">- $7,000+</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-cyan-400 mb-3 sm:mb-4">
+                        {getPrice(1800)} <span className="text-base sm:text-lg text-white/60">- {getPrice(7000)}+</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Enterprise-Level: Accelerated Scaling</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-                        {['Unlimited custom pages', 'Custom features & integrations', 'Advanced security features', 'Performance optimization', 'Priority support & maintenance', 'Unlimited revisions'].map((item, i) => (
+                        {['Unlimited custom pages', 'Custom features & integrations', 'Advanced security features', 'Performance optimization', 'Priority support', 'Unlimited revisions'].map((item, i) => (
                           <li key={i} className="flex items-start gap-2 text-white/80 text-xs sm:text-sm"><Check size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" /> <span>{item}</span></li>
                         ))}
                       </ul>
@@ -219,7 +265,7 @@ export default function Services() {
                   </div>
 
                   <p className="text-sm sm:text-base md:text-lg text-white/80 mb-8 sm:mb-12 leading-relaxed text-center sm:text-left">
-                    From stunning brand identities and pitch deck design to intuitive user interfaces (UI) and frictionless user experiences (UX). We design for conversion, ensuring every pixel works towards your business goal.
+                    From stunning brand identities and pitch deck design to intuitive user interfaces (UI) and frictionless user experiences (UX).
                   </p>
 
                   <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
@@ -235,11 +281,13 @@ export default function Services() {
                   </motion.div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                    {/* Design Pricing Cards */}
+                    {/* Design Pricing Cards - DYNAMIC CURRENCY */}
                     <motion.div whileHover={cardHover} className="glass-card p-6 sm:p-8 rounded-2xl">
                       <div className="text-xs sm:text-sm font-semibold text-gray-400 mb-2">SILVER</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Brand Essentials</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">$400 <span className="text-base sm:text-lg text-white/60">- $1,500</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">
+                        {getPrice(400)} <span className="text-base sm:text-lg text-white/60">- {getPrice(1500)}</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Logo & Basic Brand Identity</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         {['Logo design (3 concepts)', 'Color palette & typography', 'Business card design'].map((item, i) => (
@@ -253,7 +301,9 @@ export default function Services() {
                       <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold whitespace-nowrap">MOST POPULAR</div>
                       <div className="text-xs sm:text-sm font-semibold text-yellow-400 mb-2">GOLD</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Complete Brand</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">$800 <span className="text-base sm:text-lg text-white/60">- $3,500</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">
+                        {getPrice(800)} <span className="text-base sm:text-lg text-white/60">- {getPrice(3500)}</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Full Brand Identity Package</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         {['Everything in Silver', 'Brand guidelines document', 'Social media templates', 'Marketing materials'].map((item, i) => (
@@ -266,7 +316,9 @@ export default function Services() {
                     <motion.div whileHover={cardHover} className="glass-card p-6 sm:p-8 rounded-2xl">
                       <div className="text-xs sm:text-sm font-semibold text-purple-400 mb-2">PLATINUM</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Enterprise Design</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">$1,800 <span className="text-base sm:text-lg text-white/60">- $7,000+</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-3 sm:mb-4">
+                         {getPrice(1800)} <span className="text-base sm:text-lg text-white/60">- {getPrice(7000)}+</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Complete Design System</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         {['Everything in Gold', 'Complete design system', 'UI component library', 'Pitch deck design'].map((item, i) => (
@@ -302,7 +354,7 @@ export default function Services() {
                   </div>
 
                   <p className="text-sm sm:text-base md:text-lg text-white/80 mb-8 sm:mb-12 leading-relaxed text-center sm:text-left">
-                    We manage your social presence (LinkedIn, Instagram, Facebook, etc.) with data-driven strategy. Our focus is on turning followers into customers through targeted content creation, paid ad management, and dedicated community engagement.
+                    We manage your social presence with data-driven strategy. Our focus is on turning followers into customers through targeted content creation, paid ad management, and dedicated community engagement.
                   </p>
 
                   <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
@@ -318,11 +370,13 @@ export default function Services() {
                   </motion.div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                    {/* SMM Pricing Cards */}
+                    {/* Marketing Pricing Cards - DYNAMIC CURRENCY */}
                     <motion.div whileHover={cardHover} className="glass-card p-6 sm:p-8 rounded-2xl">
                       <div className="text-xs sm:text-sm font-semibold text-gray-400 mb-2">SILVER</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Brand Awareness</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-3 sm:mb-4">$400 <span className="text-base sm:text-lg text-white/60">- $1,500</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-3 sm:mb-4">
+                        {getPrice(400)} <span className="text-base sm:text-lg text-white/60">- {getPrice(1500)}</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">10-15 Posts per Month</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         {['2-3 platforms managed', 'Content creation & scheduling', 'Basic community management', 'Monthly analytics report'].map((item, i) => (
@@ -336,10 +390,12 @@ export default function Services() {
                       <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2 px-3 sm:px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-bold whitespace-nowrap">MOST POPULAR</div>
                       <div className="text-xs sm:text-sm font-semibold text-yellow-400 mb-2">GOLD</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Acquisition Focus</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-3 sm:mb-4">$800 <span className="text-base sm:text-lg text-white/60">- $3,500</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-3 sm:mb-4">
+                        {getPrice(800)} <span className="text-base sm:text-lg text-white/60">- {getPrice(3500)}</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">20-30 Posts per Month</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-                        {['Everything in Silver', 'Paid advertising campaigns', 'Advanced targeting & optimization', 'Influencer outreach', 'Bi-weekly strategy calls'].map((item, i) => (
+                        {['Everything in Silver', 'Paid advertising campaigns', 'Advanced targeting', 'Influencer outreach', 'Bi-weekly strategy calls'].map((item, i) => (
                           <li key={i} className="flex items-start gap-2 text-white/80 text-xs sm:text-sm"><Check size={16} className="text-blue-400 flex-shrink-0 mt-0.5" /> <span>{item}</span></li>
                         ))}
                       </ul>
@@ -349,7 +405,9 @@ export default function Services() {
                     <motion.div whileHover={cardHover} className="glass-card p-6 sm:p-8 rounded-2xl">
                       <div className="text-xs sm:text-sm font-semibold text-purple-400 mb-2">PLATINUM</div>
                       <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Full-Funnel Strategy</h3>
-                      <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-3 sm:mb-4">$1,800 <span className="text-base sm:text-lg text-white/60">- $7,000+</span></div>
+                      <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-3 sm:mb-4">
+                        {getPrice(1800)} <span className="text-base sm:text-lg text-white/60">- {getPrice(7000)}+</span>
+                      </div>
                       <p className="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6">Daily Content & Management</p>
                       <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                         {['Everything in Gold', 'All platforms managed', 'Video content production', 'Dedicated account manager', 'Weekly strategy sessions'].map((item, i) => (
@@ -383,7 +441,13 @@ export default function Services() {
                   {addOns.map((addon, index) => (
                     <motion.div key={index} variants={fadeInUp} whileHover={{ y: -5 }} className="glass-card p-6 sm:p-8 rounded-2xl hover:bg-white/5 transition-all">
                       <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{addon.name}</h3>
-                      <div className="text-xl sm:text-2xl font-bold text-cyan-400 mb-2 sm:mb-3">{addon.price}</div>
+                      {/* Dynamic Price for Add-ons */}
+                      <div className="text-xl sm:text-2xl font-bold text-cyan-400 mb-2 sm:mb-3">
+                         {getPrice(addon.min)} - {getPrice(addon.max)}
+                         <span className="text-sm text-white/50 font-normal">
+                           {addon.name.includes("Training") ? "/hr" : "/mo"}
+                         </span>
+                      </div>
                       <p className="text-white/70 text-xs sm:text-sm">{addon.desc}</p>
                     </motion.div>
                   ))}

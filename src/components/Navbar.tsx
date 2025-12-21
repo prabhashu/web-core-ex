@@ -38,8 +38,12 @@ export default function Navbar() {
       <nav className="fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[95%] max-w-7xl px-2 sm:px-0">
         <div className="glass-nav rounded-full px-4 sm:px-6 py-3 sm:py-4 backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/" className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap relative z-[60]">
+            
+            {/* Logo - Added focus:outline-none */}
+            <Link 
+              to="/" 
+              className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap relative z-[60] focus:outline-none"
+            >
               Web Core EX
             </Link>
 
@@ -49,24 +53,24 @@ export default function Navbar() {
                 <Link 
                   key={link.path} 
                   to={link.path} 
-                  className={`text-sm font-medium transition-all duration-300 hover:text-cyan-400 whitespace-nowrap ${isActive(link.path) ? 'text-cyan-400' : 'text-white/90'}`}
+                  className={`text-sm font-medium transition-all duration-300 hover:text-cyan-400 whitespace-nowrap focus:outline-none ${isActive(link.path) ? 'text-cyan-400' : 'text-white/90'}`}
                 >
                   {link.name}
                 </Link>
               ))}
             </div>
 
-            {/* CTA Button - Desktop */}
-            <Link to="/contact" className="hidden lg:block">
-              <button className="px-4 xl:px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 whitespace-nowrap">
+            {/* CTA Button - Desktop - Added focus:outline-none */}
+            <Link to="/contact" className="hidden lg:block focus:outline-none">
+              <button className="px-4 xl:px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 whitespace-nowrap focus:outline-none">
                 Get Started
               </button>
             </Link>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Added focus:outline-none */}
             <button 
               onClick={() => setIsOpen(!isOpen)} 
-              className="lg:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors relative z-[60]" 
+              className="lg:hidden text-white p-2 hover:bg-white/10 rounded-full transition-colors relative z-[60] focus:outline-none focus:ring-0" 
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -92,7 +96,7 @@ export default function Navbar() {
                 key={link.path} 
                 to={link.path} 
                 onClick={() => setIsOpen(false)} 
-                className={`text-lg font-medium transition-all duration-300 py-4 px-6 rounded-xl ${isActive(link.path) ? 'text-cyan-400 bg-cyan-500/20 border border-cyan-500/30' : 'text-white/90 hover:bg-white/10 hover:text-white'}`} 
+                className={`text-lg font-medium transition-all duration-300 py-4 px-6 rounded-xl focus:outline-none ${isActive(link.path) ? 'text-cyan-400 bg-cyan-500/20 border border-cyan-500/30' : 'text-white/90 hover:bg-white/10 hover:text-white'}`} 
                 style={{
                   transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
                   transform: isOpen ? 'translateX(0)' : 'translateX(20px)',
@@ -104,11 +108,11 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* FIX: Mobile CTA Button (Removed nested button tag) */}
+          {/* Mobile CTA Button - Added focus:outline-none */}
           <Link 
             to="/contact" 
             onClick={() => setIsOpen(false)} 
-            className="mt-8 w-full px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-[1.02] text-center block"
+            className="mt-8 w-full px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-[1.02] text-center block focus:outline-none"
             style={{
               transitionDelay: isOpen ? '250ms' : '0ms',
               transform: isOpen ? 'translateX(0)' : 'translateX(20px)',
