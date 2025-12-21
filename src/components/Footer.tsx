@@ -21,20 +21,19 @@ export default function Footer() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  // Enhanced Social Hover: Scale + Glow effect
   const socialHover = {
     scale: 1.2,
-    textShadow: "0px 0px 8px rgb(34, 211, 238)", // Cyan glow
+    textShadow: "0px 0px 8px rgb(34, 211, 238)",
     transition: { type: "spring", stiffness: 400 }
   };
 
-  // Enhanced Link Style: Cyan hover + slight slide right
   const linkClass = "text-white/60 hover:text-cyan-400 transition-all duration-300 text-sm focus:outline-none hover:translate-x-1 inline-block";
 
   return (
-    <footer className="relative mt-24">
+    // Changed mt-24 to mt-12 sm:mt-24 for better mobile spacing
+    <footer className="relative mt-12 sm:mt-24">
 
-      {/* --- GLASS BACKGROUND (Unchanged) --- */}
+      {/* --- GLASS BACKGROUND --- */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-black/80 backdrop-blur-xl border-t border-white/10"></div>
 
       <motion.div 
@@ -42,36 +41,34 @@ export default function Footer() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
-        className="max-w-7xl mx-auto px-6 lg:px-8 py-12 relative z-10"
+        // Changed px-6 to px-4 for mobile
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 text-center sm:text-left">
           
           {/* COLUMN 1: Brand */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-6">
             <Link to="/" onClick={scrollToTop} className="inline-block focus:outline-none group">
-              {/* UPDATED: Gradient Text Header */}
               <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 Web Core EX
               </h3>
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed max-w-xs">
+            {/* Added mx-auto sm:mx-0 to center text on mobile */}
+            <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto sm:mx-0">
               World-class Web Design & Digital Marketing solutions. Built for global growth.
             </p>
 
-            {/* --- CUSTOM TRUSTPILOT BADGE (Replaced the Widget) --- */}
+            {/* Trustpilot - Centered on Mobile (mx-auto sm:mx-0) */}
             <a 
               href="https://www.trustpilot.com/review/webcoreex.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 group max-w-fit"
+              className="inline-flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 group max-w-fit mx-auto sm:mx-0"
             >
-              {/* Green Star Icon Circle */}
               <div className="w-10 h-10 rounded-full bg-[#00b67a]/10 flex items-center justify-center border border-[#00b67a]/20 group-hover:scale-110 transition-transform">
                 <Star size={18} className="text-[#00b67a] fill-[#00b67a]" />
               </div>
-              
-              {/* Text Info */}
-              <div className="flex flex-col">
+              <div className="flex flex-col items-start">
                 <span className="text-white font-bold text-sm leading-none mb-1">Excellent</span>
                 <div className="flex items-center gap-1 text-[10px] text-white/50">
                   <span>See reviews on</span>
@@ -79,8 +76,6 @@ export default function Footer() {
                 </div>
               </div>
             </a>
-            {/* ---------------------------------------------------- */}
-
           </motion.div>
 
           {/* COLUMN 2: Company */}
@@ -109,22 +104,23 @@ export default function Footer() {
           <motion.div variants={itemVariants}>
             <h4 className="text-white font-bold mb-4">Get in Touch</h4>
             <ul className="space-y-3 mb-6">
-              <li className="flex items-start gap-3 text-white/60 text-sm group">
+              {/* Added justify-center sm:justify-start for alignment */}
+              <li className="flex items-start justify-center sm:justify-start gap-3 text-white/60 text-sm group">
                 <MapPin size={16} className="text-cyan-400 mt-0.5 group-hover:text-cyan-300 transition-colors" />
                 <span>Colombo, Sri Lanka</span>
               </li>
-              <li className="flex items-start gap-3 text-white/60 text-sm group">
+              <li className="flex items-start justify-center sm:justify-start gap-3 text-white/60 text-sm group">
                 <Mail size={16} className="text-cyan-400 mt-0.5 group-hover:text-cyan-300 transition-colors" />
-                <a href="mailto:hello@webcoreex.com" className="hover:text-cyan-400 focus:outline-none transition-colors">info@webcoreex.com</a>
+                <a href="mailto:info@webcoreex.com" className="hover:text-cyan-400 focus:outline-none transition-colors">info@webcoreex.com</a>
               </li>
-              <li className="flex items-start gap-3 text-white/60 text-sm group">
+              <li className="flex items-start justify-center sm:justify-start gap-3 text-white/60 text-sm group">
                 <Phone size={16} className="text-cyan-400 mt-0.5 group-hover:text-cyan-300 transition-colors" />
                 <span>+94 77 589 6396</span>
               </li>
             </ul>
 
-            {/* UPDATED: Social Icons with Glow & Color Hover */}
-            <div className="flex gap-4">
+            {/* Social Icons - Centered on Mobile */}
+            <div className="flex gap-4 justify-center sm:justify-start">
               {[
                 { Icon: Facebook, link: "https://web.facebook.com/webcoreex/" },
                 { Icon: Instagram, link: "https://www.instagram.com/webcoreex/" },
@@ -136,7 +132,6 @@ export default function Footer() {
                   href={social.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  // Changed hover color to cyan-400
                   className="text-white/60 hover:text-cyan-400 transition-colors focus:outline-none"
                 >
                   <social.Icon size={22} />
@@ -149,13 +144,12 @@ export default function Footer() {
         {/* BOTTOM BAR */}
         <motion.div 
           variants={itemVariants} 
-          className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
+          className="pt-6 border-t border-white/10 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
         >
           <p className="text-white/40 text-xs">
             © {new Date().getFullYear()} Web Core EX. All rights reserved.
           </p>
 
-          {/* UPDATED: Back to Top with Arrow Animation */}
           <button 
             onClick={scrollToTop}
             className="group flex items-center gap-2 text-xs font-semibold text-white/40 hover:text-cyan-400 transition-colors focus:outline-none"
