@@ -3,10 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import ScrollReset from './components/ScrollReset'; // <--- 1. NEW IMPORT (The automatic fixer)
 import { Loader2 } from 'lucide-react';
 
 // 1. NEW IMPORT: Import the Cookie Consent Component
-import CookieConsent from './components/CookieConsent'; 
+import CookieConsent from './components/CookieConsent';
 
 // Lazy Load Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -42,12 +43,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       <BrowserRouter>
+        <ScrollReset />
         <ScrollToTop />
         <Navbar />
-        
+
         {/* 2. ADD COMPONENT: Place it here so it's available globally */}
         <CookieConsent />
-        
+
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -59,7 +61,7 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
-        
+
         <Footer />
 
         {/* Only load chat after 4 seconds */}
