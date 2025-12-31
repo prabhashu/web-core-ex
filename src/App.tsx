@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import ScrollReset from './components/ScrollReset'; // <--- 1. NEW IMPORT (The automatic fixer)
+import ScrollReset from './components/ScrollReset';
 import { Loader2 } from 'lucide-react';
 
-// 1. NEW IMPORT: Import the Cookie Consent Component
+// Import Cookie Consent & New Year Popup
 import CookieConsent from './components/CookieConsent';
+import NewYearPopup from './components/NewYearPopup'; // <--- 1. NEW IMPORT
 
 // Lazy Load Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -17,7 +18,6 @@ const Portfolio = lazy(() => import('./pages/Portfolio'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-
 
 // Lazy Load Chat (Critical for Performance)
 const GeminiChat = lazy(() => import('./components/GeminiChat'));
@@ -41,13 +41,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative">
+
       <BrowserRouter>
+      
+
+        {/* PLACE IT HERE (Inside Router) */}
+        <NewYearPopup />
+
         <ScrollReset />
         <ScrollToTop />
         <Navbar />
 
-        {/* 2. ADD COMPONENT: Place it here so it's available globally */}
+        {/* Cookie Consent */}
         <CookieConsent />
 
         <Suspense fallback={<PageLoader />}>

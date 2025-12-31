@@ -3,6 +3,24 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, ArrowUp, Star } fro
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+// Custom TikTok Icon Component (since Lucide doesn't have one)
+const TiktokIcon = ({ size = 22, className = "" }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -115,7 +133,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start justify-center sm:justify-start gap-3 text-white/60 text-sm group">
                 <Phone size={16} className="text-cyan-400 mt-0.5 group-hover:text-cyan-300 transition-colors" />
-                <span>+94 77 589 6396</span>
+                <span>+94 76 805 2503</span>
               </li>
             </ul>
 
@@ -124,7 +142,8 @@ export default function Footer() {
               {[
                 { Icon: Facebook, link: "https://web.facebook.com/webcoreex/" },
                 { Icon: Instagram, link: "https://www.instagram.com/webcoreex/" },
-                { Icon: Linkedin, link: "https://linkedin.com/company/web-core-ex" }
+                { Icon: Linkedin, link: "https://linkedin.com/company/web-core-ex" },
+                { Icon: TiktokIcon, link: "https://www.tiktok.com/@webcoreex" } // <-- ADDED TIKTOK HERE
               ].map((social, index) => (
                 <motion.a 
                   key={index}

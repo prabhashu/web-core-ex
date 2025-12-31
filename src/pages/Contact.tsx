@@ -4,6 +4,24 @@ import { Mail, Phone, MapPin, Send, Clock, MessageSquare, CheckCircle, Globe, Li
 import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// --- Custom TikTok Icon (Same as Footer) ---
+const TiktokIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
 export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -319,15 +337,15 @@ export default function Contact() {
                 </div>
               </motion.div>
 
-              {/* Social Media */}
+              {/* Social Media - ADDED TIKTOK HERE */}
               <motion.div variants={fadeInUp} className="glass-card p-8 rounded-3xl border border-white/10">
                 <h3 className="text-2xl font-bold text-white mb-6">Follow Us</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-400', link: 'https://www.linkedin.com/company/web-core-ex' },
-                    { name: 'Twitter', icon: Twitter, color: 'text-sky-400', link: '#' },
+                    { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-400', link: 'https://www.linkedin.com/company/web-core-ex' }, 
                     { name: 'Facebook', icon: Facebook, color: 'text-blue-600', link: 'https://facebook.com/webcoreex' },
-                    { name: 'Instagram', icon: Instagram, color: 'text-pink-500', link: 'https://www.instagram.com/webcoreex/' }
+                    { name: 'Instagram', icon: Instagram, color: 'text-pink-500', link: 'https://www.instagram.com/webcoreex/' },
+                    { name: 'TikTok', icon: TiktokIcon, color: 'text-cyan-400', link: 'https://www.tiktok.com/@webcoreex' } 
                   ].map((social, idx) => (
                     <motion.a 
                       key={idx}
@@ -385,7 +403,7 @@ export default function Contact() {
             </motion.div>
           </section>
 
-          {/* Global Presence Map Placeholder (FIXED BACKGROUND COLOR) */}
+          {/* Global Presence Map Placeholder */}
           <section className="mb-20">
             <motion.div 
               initial="hidden"
@@ -396,7 +414,7 @@ export default function Contact() {
             >
               <h2 className="text-3xl font-bold text-white mb-6 text-center">Our Global Presence</h2>
               
-              {/* --- UPDATED BACKGROUND: Deep Blue/Purple Gradient instead of Black --- */}
+              {/* --- UPDATED BACKGROUND --- */}
               <div className="h-96 rounded-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/5 flex items-center justify-center relative overflow-hidden group">
                 
                 {/* Decorative Radar Sweep Animation */}
