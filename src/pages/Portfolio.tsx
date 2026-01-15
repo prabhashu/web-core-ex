@@ -53,7 +53,7 @@ export default function Portfolio() {
       title: 'Marina Buy House',
       client: 'Marina Real Estate',
       url: 'https://marina-buy-house.netlify.app/',
-      image: '/portfolio/marina-house.webp', // <--- Save image as this name
+      image: '/portfolio/marina-house.webp',
       category: 'Real Estate',
       service: 'Lead Generation Web',
       description: 'A high-converting landing page designed for real estate investors. Focuses on building trust and capturing seller leads efficiently.',
@@ -66,7 +66,7 @@ export default function Portfolio() {
       title: 'Carrollwood Barbershop',
       client: 'Carrollwood Barbershop',
       url: 'https://carrollwood-barbershop.netlify.app/',
-      image: '/portfolio/carrollwood.webp', // <--- Save image as this name
+      image: '/portfolio/carrollwood.webp',
       category: 'Service Business',
       service: 'Business Website',
       description: 'A modern, masculine design for a local barbershop featuring service menus, gallery showcases, and location integration.',
@@ -181,9 +181,8 @@ export default function Portfolio() {
     },
   ];
 
-  // --- Categories List (Updated) ---
+  // --- Categories List ---
   const categories = ['All', 'Food & Beverage', 'Real Estate', 'Service Business', 'Web Design', 'Web App'];
-  
   const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
   // --- Industries Data ---
@@ -195,7 +194,6 @@ export default function Portfolio() {
     { name: 'Education', count: 20, icon: Users, color: 'from-yellow-500 to-orange-500' },
     { name: 'Food & Beverage', count: 15, icon: TrendingUp, color: 'from-red-500 to-pink-500' }
   ];
-  // Duplicate for infinite scroll
   const duplicatedIndustries = [...industries, ...industries];
 
   return (
@@ -205,6 +203,17 @@ export default function Portfolio() {
         description="Browse our latest work. From bustling restaurants like Brooklyn Pizza to modern web apps, we build digital experiences that drive growth."
       />
 
+      {/* Hide scrollbar CSS */}
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+
       <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           
@@ -213,7 +222,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-16"
           >
             <div className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold mb-6">
                Selected Works
@@ -222,25 +231,29 @@ export default function Portfolio() {
               Built for <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Growth</span>
             </h1>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              We don't just build websites; we build digital engines that drive revenue. Check out our latest deployments.
+              We don't just build websites; we build digital engines that drive revenue.
             </p>
           </motion.div>
 
-          {/* Filter Tabs */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
-                  filter === cat 
-                    ? 'bg-white text-gray-900 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' 
-                    : 'bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:border-white/20'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* --- REDESIGNED FILTER TABS (Mobile Friendly) --- */}
+          <div className="sticky top-24 z-30 sm:relative sm:top-0 -mx-4 px-4 sm:mx-0 sm:px-0 mb-12">
+            <div className="flex overflow-x-auto pb-4 sm:pb-0 sm:flex-wrap sm:justify-center gap-3 no-scrollbar mask-linear-fade">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`
+                    flex-shrink-0 px-5 py-2 sm:px-6 sm:py-2.5 rounded-full text-sm font-medium transition-all duration-300 border whitespace-nowrap
+                    ${filter === cat 
+                      ? 'bg-white text-gray-900 border-white shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105' 
+                      : 'bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md'
+                    }
+                  `}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Real Projects Grid */}
@@ -273,7 +286,6 @@ export default function Portfolio() {
                           src={project.image} 
                           alt={`${project.title} Website Mockup`}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          // Fallback to gradient if image missing
                           onError={(e) => { e.currentTarget.style.display = 'none'; }}
                         />
 
@@ -377,7 +389,7 @@ export default function Portfolio() {
                   x: {
                     repeat: Infinity,
                     repeatType: "loop",
-                    duration: 30, // Speed of the slide
+                    duration: 30, 
                     ease: "linear",
                   },
                 }}

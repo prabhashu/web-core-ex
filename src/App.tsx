@@ -47,7 +47,7 @@ export default function App() {
       
 
         {/* PLACE IT HERE (Inside Router) */}
-        <NewYearPopup />
+        
 
         <ScrollReset />
         <ScrollToTop />
