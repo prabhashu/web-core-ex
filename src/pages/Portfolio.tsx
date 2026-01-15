@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, TrendingUp, Users, DollarSign, Award, CheckCircle, BarChart, Globe, Zap, UtensilsCrossed, Layout, Smartphone, ArrowRight } from 'lucide-react';
+import { ExternalLink, TrendingUp, Users, DollarSign, Award, CheckCircle, BarChart, Globe, Zap, UtensilsCrossed, Layout, Smartphone, ArrowRight, Home, Scissors } from 'lucide-react';
 import SEO from '../components/SEO';
 import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 
@@ -47,13 +47,39 @@ export default function Portfolio() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  // --- Real Project Data with Image Paths ---
+  // --- Real Project Data ---
   const projects = [
+    {
+      title: 'Marina Buy House',
+      client: 'Marina Real Estate',
+      url: 'https://marina-buy-house.netlify.app/',
+      image: '/portfolio/marina-house.webp', // <--- Save image as this name
+      category: 'Real Estate',
+      service: 'Lead Generation Web',
+      description: 'A high-converting landing page designed for real estate investors. Focuses on building trust and capturing seller leads efficiently.',
+      results: 'High Lead Volume',
+      technologies: ['React', 'Forms', 'Tailwind'],
+      gradient: 'from-teal-500 to-green-600',
+      icon: Home
+    },
+    {
+      title: 'Carrollwood Barbershop',
+      client: 'Carrollwood Barbershop',
+      url: 'https://carrollwood-barbershop.netlify.app/',
+      image: '/portfolio/carrollwood.webp', // <--- Save image as this name
+      category: 'Service Business',
+      service: 'Business Website',
+      description: 'A modern, masculine design for a local barbershop featuring service menus, gallery showcases, and location integration.',
+      results: 'Increased Walk-ins',
+      technologies: ['React', 'Framer Motion', 'SEO'],
+      gradient: 'from-slate-600 to-gray-700',
+      icon: Scissors
+    },
     {
       title: 'Brooklyn Pizza Pasta Grill',
       client: 'Brooklyn Pizza',
       url: 'https://brooklynpizzapastagrill.com/',
-      image: '/portfolio/brooklyn.webp', // <--- Make sure this image exists in public/portfolio/
+      image: '/portfolio/brooklyn.webp', 
       category: 'Food & Beverage',
       service: 'Web Development & SEO',
       description: 'A full-stack restaurant platform featuring an interactive digital menu, online ordering integration, and local SEO optimization to drive foot traffic.',
@@ -61,6 +87,19 @@ export default function Portfolio() {
       technologies: ['React', 'Next.js', 'Tailwind', 'SEO'],
       gradient: 'from-orange-500 to-red-500',
       icon: UtensilsCrossed
+    },
+    {
+      title: 'Colom Brothers',
+      client: 'Colom Brothers',
+      url: 'https://colombrothers.netlify.app/',
+      image: '/portfolio/colombrothers.webp', 
+      category: 'Web Design',
+      service: 'Corporate Website',
+      description: 'A sleek, professional corporate website designed to showcase business services and portfolio items with a focus on user experience and brand identity.',
+      results: 'Improved Brand Visibility',
+      technologies: ['React', 'Tailwind', 'Responsive Design'],
+      gradient: 'from-indigo-500 to-purple-500',
+      icon: Layout
     },
     {
       title: 'Brooklyn Pizza (App Version)',
@@ -101,7 +140,6 @@ export default function Portfolio() {
       gradient: 'from-purple-500 to-pink-500',
       icon: Layout
     },
-    
     {
       title: "Joe's New York Diner",
       client: "Joe's Diner",
@@ -141,9 +179,12 @@ export default function Portfolio() {
       gradient: 'from-green-600 to-emerald-600',
       icon: UtensilsCrossed
     },
-    
-    
   ];
+
+  // --- Categories List (Updated) ---
+  const categories = ['All', 'Food & Beverage', 'Real Estate', 'Service Business', 'Web Design', 'Web App'];
+  
+  const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
   // --- Industries Data ---
   const industries = [
@@ -156,9 +197,6 @@ export default function Portfolio() {
   ];
   // Duplicate for infinite scroll
   const duplicatedIndustries = [...industries, ...industries];
-
-  const categories = ['All', 'Food & Beverage', 'Web Design', 'Web App'];
-  const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
   return (
     <>
@@ -228,7 +266,6 @@ export default function Portfolio() {
                   <div className="h-full glass-card p-1 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 hover:border-cyan-500/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10 flex flex-col">
                     
                     {/* --- PROJECT IMAGE HEADER --- */}
-                    {/* We use a gradient background as fallback, and place image on top */}
                     <div className={`h-48 rounded-2xl bg-gradient-to-br ${project.gradient} relative overflow-hidden flex flex-col justify-between group-hover:shadow-lg transition-all`}>
                         
                         {/* 1. The Mockup Image */}
@@ -236,14 +273,14 @@ export default function Portfolio() {
                           src={project.image} 
                           alt={`${project.title} Website Mockup`}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          // If image fails to load, it hides itself, revealing the beautiful gradient behind it
+                          // Fallback to gradient if image missing
                           onError={(e) => { e.currentTarget.style.display = 'none'; }}
                         />
 
-                        {/* 2. Dark Overlay (So text remains readable) */}
+                        {/* 2. Dark Overlay */}
                         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
 
-                        {/* 3. Overlay Content (Icons/Links) */}
+                        {/* 3. Overlay Content */}
                         <div className="relative z-10 p-6 h-full flex flex-col justify-between">
                             <div className="flex justify-between items-start">
                                 <div className="p-2 bg-white/20 backdrop-blur-md rounded-lg text-white">
