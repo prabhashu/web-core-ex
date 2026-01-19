@@ -48,7 +48,7 @@ export default function About() {
       specialty: 'Cyber Security Engineer', 
       description: "As Co-Founder and Managing Director of WebCoreEx, I manage the company's operations, client relations, and strategic growth. I am committed to delivering innovative web development, digital marketing, and design solutions that drive success for our clients.", 
       image: 'Tharindu-Nawodha.jpg',
-      linkedin: '#' 
+      linkedin: 'http://linkedin.com/in/nawodha-weerasooriya-ab482718a/' 
     }, 
     { 
       name: 'Prabhashu Samarakkodi', 

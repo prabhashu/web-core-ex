@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { Mail, Phone, MapPin, Send, Clock, MessageSquare, CheckCircle, Globe, Linkedin, Twitter, Facebook, Instagram, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, MessageSquare, CheckCircle, Globe, Linkedin, Twitter, Facebook, Instagram, Loader2, ArrowRight, Calendar } from 'lucide-react';
 import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// --- Custom TikTok Icon (Same as Footer) ---
+// --- Custom TikTok Icon ---
 const TiktokIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -337,12 +337,13 @@ export default function Contact() {
                 </div>
               </motion.div>
 
-              {/* Social Media - ADDED TIKTOK HERE */}
+              {/* Social Media */}
               <motion.div variants={fadeInUp} className="glass-card p-8 rounded-3xl border border-white/10">
                 <h3 className="text-2xl font-bold text-white mb-6">Follow Us</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-400', link: 'https://www.linkedin.com/company/web-core-ex' }, 
+                    { name: 'LinkedIn', icon: Linkedin, color: 'text-blue-400', link: 'https://www.linkedin.com/company/web-core-ex' },
+                    { name: 'Twitter', icon: Twitter, color: 'text-sky-400', link: '#' },
                     { name: 'Facebook', icon: Facebook, color: 'text-blue-600', link: 'https://facebook.com/webcoreex' },
                     { name: 'Instagram', icon: Instagram, color: 'text-pink-500', link: 'https://www.instagram.com/webcoreex/' },
                     { name: 'TikTok', icon: TiktokIcon, color: 'text-cyan-400', link: 'https://www.tiktok.com/@webcoreex' } 
@@ -366,7 +367,7 @@ export default function Contact() {
           </div>
 
           {/* FAQ Section */}
-          <section className="mb-20">
+          <section className="mb-24">
             <motion.div 
               initial="hidden"
               whileInView="visible"
@@ -403,67 +404,154 @@ export default function Contact() {
             </motion.div>
           </section>
 
-          {/* Global Presence Map Placeholder */}
-          <section className="mb-20">
+          {/* --- REDESIGNED GLOBAL PRESENCE: Holographic Orbital Network --- */}
+          <section className="mb-24">
             <motion.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="glass-card p-8 rounded-3xl border border-white/10"
+              className="relative rounded-3xl border border-white/10 bg-gray-900/50 backdrop-blur-xl overflow-hidden min-h-auto py-16 lg:min-h-[500px] lg:py-0 flex items-center justify-center"
             >
-              <h2 className="text-3xl font-bold text-white mb-6 text-center">Our Global Presence</h2>
-              
-              {/* --- UPDATED BACKGROUND --- */}
-              <div className="h-96 rounded-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/5 flex items-center justify-center relative overflow-hidden group">
+              {/* Background Grid */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-gray-900/90 pointer-events-none"></div>
+
+              <div className="relative z-10 w-full max-w-5xl px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
                 
-                {/* Decorative Radar Sweep Animation */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent w-full h-full animate-[spin_4s_linear_infinite] opacity-30"></div>
-                
-                <div className="text-center z-10">
-                  <motion.div 
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    <Globe size={64} className="text-cyan-400 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
-                  </motion.div>
-                  <p className="text-white/80 text-lg font-semibold">Serving clients in 25+ countries worldwide</p>
-                  <p className="text-white/50 text-sm mt-2">Headquarters: Colombo, Sri Lanka</p>
+                {/* Text Content */}
+                <div className="text-center lg:text-left max-w-lg w-full">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono mb-6 animate-pulse">
+                        <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                        SYSTEM ONLINE: GLOBAL
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        Command Center <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Global Operations</span>
+                    </h2>
+                    <p className="text-white/60 text-lg mb-8 leading-relaxed">
+                        Operating from our strategic hub in Sri Lanka, we deploy digital solutions to partners across the USA, UK, and Europe with 24/7 efficiency.
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                            <div className="text-2xl font-bold text-white mb-1">25+</div>
+                            <div className="text-xs text-white/40 uppercase tracking-wider">Countries Served</div>
+                        </div>
+                        <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                            <div className="text-2xl font-bold text-white mb-1">24/7</div>
+                            <div className="text-xs text-white/40 uppercase tracking-wider">Active Support</div>
+                        </div>
+                    </div>
                 </div>
+
+                {/* Animated Orbital Map Visualization - Responsive Scaled */}
+                <div className="relative w-full flex justify-center lg:justify-end">
+                    <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 scale-75 sm:scale-100 flex-shrink-0">
+                        {/* Core (Sri Lanka) */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-cyan-500/20 rounded-full blur-xl animate-pulse"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.8)] z-20"></div>
+                        
+                        {/* Orbital Rings */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-white/10 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                        
+                        {/* Orbiting Nodes (Satellites) */}
+                        <motion.div 
+                            className="absolute top-1/2 left-1/2 w-48 h-48 -ml-24 -mt-24"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        >
+                            <div className="absolute top-0 left-1/2 -ml-3 w-6 h-6 bg-purple-500/20 rounded-full flex items-center justify-center backdrop-blur-md border border-purple-500/30">
+                                <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                            </div>
+                            <motion.div 
+                                className="absolute -top-6 left-1/2 -ml-4 text-[10px] text-purple-300 font-mono"
+                                animate={{ rotate: -360 }}
+                                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                            >
+                                USA
+                            </motion.div>
+                        </motion.div>
+
+                        <motion.div 
+                            className="absolute top-1/2 left-1/2 w-72 h-72 -ml-36 -mt-36"
+                            animate={{ rotate: -360 }}
+                            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        >
+                            <div className="absolute bottom-[15%] right-[10%] w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center backdrop-blur-md border border-blue-500/30">
+                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            </div>
+                            <motion.div 
+                                className="absolute bottom-[8%] right-[5%] text-[10px] text-blue-300 font-mono"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                            >
+                                UK/EU
+                            </motion.div>
+                        </motion.div>
+                    </div>
+                </div>
+
               </div>
             </motion.div>
           </section>
 
-          {/* Final CTA */}
+          {/* --- REDESIGNED FINAL CTA: The Magnetic Spotlight --- */}
           <section>
             <motion.div 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="glass-card p-12 md:p-16 rounded-3xl text-center relative overflow-hidden"
+              className="relative w-full overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 to-purple-900 shadow-2xl border border-white/10 group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10"></div>
-              <div className="relative z-10">
-                <h2 className="text-4xl font-bold text-white mb-6">Still Have Questions?</h2>
-                <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-                  Schedule a free 30-minute consultation with our team to discuss your project in detail
-                </p>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
-                >
-                  Schedule Free Consultation
-                </motion.button>
+              {/* Background Animated Gradient */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              
+              <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between p-8 sm:p-10 lg:p-16 gap-8 lg:gap-10">
                 
-                <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-8 text-white/60 text-sm">
-                  {['No Commitment', 'Free Advice', '30 Minutes'].map((item, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <CheckCircle size={16} className="text-green-400" /> <span>{item}</span>
+                <div className="text-center lg:text-left max-w-xl">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                        Still on the fence?
+                    </h2>
+                    <p className="text-indigo-200 text-lg mb-8">
+                        Let's strip away the complexity. Schedule a free 30-minute strategy session. No sales pressure, just actionable advice for your digital growth.
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                        <div className="flex items-center gap-2 text-sm text-indigo-300 bg-black/20 px-3 py-1.5 rounded-lg border border-white/5">
+                            <CheckCircle size={14} className="text-green-400" /> Free Audit
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-indigo-300 bg-black/20 px-3 py-1.5 rounded-lg border border-white/5">
+                            <CheckCircle size={14} className="text-green-400" /> Tech Roadmap
+                        </div>
                     </div>
-                  ))}
                 </div>
+
+                <div className="flex-shrink-0 w-full lg:w-auto flex flex-col items-center">
+                    <motion.a 
+                      href="https://wa.me/94768052503?text=Hi%20Web%20Core%20EX,%20I%20would%20like%20to%20book%20a%20free%20strategy%20call."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative group/btn flex items-center justify-center gap-3 px-8 py-5 bg-white text-indigo-900 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] transition-all duration-300 overflow-hidden w-full sm:w-auto"
+                    >
+                        <span className="relative z-10">Book Free Strategy Call</span>
+                        <ArrowRight className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1 transition-transform" />
+                        
+                        {/* Button Shine Effect */}
+                        <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent z-0"></div>
+                    </motion.a>
+                    
+                    <div className="mt-4 text-center">
+                        <p className="text-xs text-indigo-300/60 flex items-center justify-center gap-2">
+                            <Calendar size={12} /> Available slots for this week
+                        </p>
+                    </div>
+                </div>
+
               </div>
             </motion.div>
           </section>
