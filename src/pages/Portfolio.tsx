@@ -75,19 +75,7 @@ export default function Portfolio() {
       gradient: 'from-slate-600 to-gray-700',
       icon: Scissors
     },
-    {
-      title: 'Brooklyn Pizza Pasta Grill',
-      client: 'Brooklyn Pizza',
-      url: 'https://brooklynpizzapastagrill.com/',
-      image: '/portfolio/brooklyn.webp', 
-      category: 'Food & Beverage',
-      service: 'Web Development & SEO',
-      description: 'A full-stack restaurant platform featuring an interactive digital menu, online ordering integration, and local SEO optimization to drive foot traffic.',
-      results: 'Increased online orders by 40%',
-      technologies: ['React', 'Next.js', 'Tailwind', 'SEO'],
-      gradient: 'from-orange-500 to-red-500',
-      icon: UtensilsCrossed
-    },
+  
     {
       title: 'Colom Brothers',
       client: 'Colom Brothers',
@@ -140,45 +128,7 @@ export default function Portfolio() {
       gradient: 'from-purple-500 to-pink-500',
       icon: Layout
     },
-    {
-      title: "Joe's New York Diner",
-      client: "Joe's Diner",
-      url: 'https://joesnewyorkdiner.com/',
-      image: '/portfolio/joes-diner.png.webp',
-      category: 'Food & Beverage',
-      service: 'Website Redesign',
-      description: 'A classic American diner website redesigned for the modern era. Features mobile-responsive menus, gallery showcases, and fast load times.',
-      results: 'Reduced bounce rate by 60%',
-      technologies: ['React', 'Framer Motion', 'Google Maps API'],
-      gradient: 'from-blue-600 to-indigo-600',
-      icon: UtensilsCrossed
-    },
-    {
-      title: 'House of Curry',
-      client: 'House of Curry MN',
-      url: 'https://houseofcurrymn.com/',
-      image: '/portfolio/house-of-curry.webp',
-      category: 'Food & Beverage',
-      service: 'Digital Branding & Web',
-      description: 'Authentic Indian cuisine showcased through a vibrant, colorful web interface. Focuses on visual storytelling and simplified table reservations.',
-      results: '2x Reservation Inquiries',
-      technologies: ['Next.js', 'Tailwind CSS', 'Analytics'],
-      gradient: 'from-yellow-500 to-orange-600',
-      icon: UtensilsCrossed
-    },
-    {
-      title: "Double Bogey's Tavern",
-      client: "Double Bogey's",
-      url: 'https://doublebogeystavernandgrille.com/',
-      image: '/portfolio/double-bogey.webp',
-      category: 'Food & Beverage',
-      service: 'Web Development',
-      description: 'A sports bar and grille website built to highlight events, specials, and their extensive menu. Optimized for local search visibility.',
-      results: 'Top 3 Local Ranking',
-      technologies: ['React', 'SEO', 'Performance Optimization'],
-      gradient: 'from-green-600 to-emerald-600',
-      icon: UtensilsCrossed
-    },
+    
   ];
 
   // --- Categories List ---
