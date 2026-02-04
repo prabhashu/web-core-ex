@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///E:/Web%20Core%20EX/Web%20Core%20EX/src/app/services/page.tsx"],"sourcesContent":["import Services from '@/components/pages/Services';\r\nimport { Metadata } from 'next';\r\n\r\nexport const metadata: Metadata = {\r\n  title: \"Web Development & Marketing Services | Transparent Pricing\",\r\n  description: \"View our pricing for MVP Development, UI/UX Design, and Social Media Marketing. View costs in USD, GBP, CAD, AUD, or LKR.\"\r\n};\r\n\r\nexport default function Page() {\r\n  return <Services />;\r\n}\r\n"],"names":[],"mappings":";;;;;;;AAAA;;;AAGO,MAAM,WAAqB;IAChC,OAAO;IACP,aAAa;AACf;AAEe,SAAS;IACtB,qBAAO,8OAAC,kJAAQ;;;;;AAClB"}}]
+}

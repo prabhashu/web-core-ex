@@ -160,7 +160,7 @@
 @media (max-width: 768px) {
   .glass-card {
     /* Lower blur for mobile to save GPU */
-    backdrop-filter: blur(8px) !important; 
-    -webkit-backdrop-filter: blur(8px) !important;
+    backdrop-filter: blur(4px) !important; 
+    -webkit-backdrop-filter: blur(4px) !important;
   }
 }

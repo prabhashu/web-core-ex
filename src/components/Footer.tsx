@@ -1,6 +1,8 @@
+"use client";
+
 import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, ArrowUp, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 // Custom TikTok Icon Component (since Lucide doesn't have one)
@@ -36,13 +38,13 @@ export default function Footer() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as any } },
   };
 
   const socialHover = {
     scale: 1.2,
     textShadow: "0px 0px 8px rgb(34, 211, 238)",
-    transition: { type: "spring", stiffness: 400 }
+    transition: { type: "spring" as any, stiffness: 400 }
   };
 
   const linkClass = "text-white/60 hover:text-cyan-400 transition-all duration-300 text-sm focus:outline-none hover:translate-x-1 inline-block";
@@ -66,7 +68,7 @@ export default function Footer() {
           
           {/* COLUMN 1: Brand */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <Link to="/" onClick={scrollToTop} className="inline-block focus:outline-none group">
+            <Link href="/" onClick={scrollToTop} className="inline-block focus:outline-none group">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 Web Core EX
               </h3>
@@ -100,10 +102,10 @@ export default function Footer() {
           <motion.div variants={itemVariants}>
             <h4 className="text-white font-bold mb-4">Company</h4>
             <ul className="space-y-3">
-              <li><Link to="/" onClick={scrollToTop} className={linkClass}>Home</Link></li>
-              <li><Link to="/about" className={linkClass}>About Us</Link></li>
-              <li><Link to="/portfolio" className={linkClass}>Our Portfolio</Link></li>
-              <li><Link to="/contact" className={linkClass}>Contact Us</Link></li>
+              <li><Link href="/" onClick={scrollToTop} className={linkClass}>Home</Link></li>
+              <li><Link href="/about" className={linkClass}>About Us</Link></li>
+              <li><Link href="/portfolio" className={linkClass}>Our Portfolio</Link></li>
+              <li><Link href="/contact" className={linkClass}>Contact Us</Link></li>
             </ul>
           </motion.div>
 
@@ -111,10 +113,10 @@ export default function Footer() {
           <motion.div variants={itemVariants}>
             <h4 className="text-white font-bold mb-4">Services</h4>
             <ul className="space-y-3">
-              <li><Link to="/services" className={linkClass}>Web Development</Link></li>
-              <li><Link to="/services" className={linkClass}>UI/UX Design</Link></li>
-              <li><Link to="/services" className={linkClass}>Social Media Marketing</Link></li>
-              <li><Link to="/privacy" className={linkClass}>Privacy Policy</Link></li>
+              <li><Link href="/services" className={linkClass}>Web Development</Link></li>
+              <li><Link href="/services" className={linkClass}>UI/UX Design</Link></li>
+              <li><Link href="/services" className={linkClass}>Social Media Marketing</Link></li>
+              <li><Link href="/privacy" className={linkClass}>Privacy Policy</Link></li>
             </ul>
           </motion.div>
 

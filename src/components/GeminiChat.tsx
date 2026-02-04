@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState, useRef, useEffect, KeyboardEvent, ChangeEvent } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot, Sparkles, Trash2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   text: string;
@@ -54,7 +57,7 @@ const GeminiChat: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/.netlify/functions/chat', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: textToSend }),
@@ -145,7 +148,20 @@ const GeminiChat: React.FC = () => {
                       : 'bg-white/10 text-gray-100 border border-white/5 rounded-bl-none'
                   }`}
                 >
-                  <div className="whitespace-pre-wrap">{msg.text}</div>
+                  <div className="text-sm leading-relaxed">
+                    <ReactMarkdown
+                      components={{
+                        p: ({node, ...props}: any) => <p className="mb-2 last:mb-0" {...props} />,
+                        ul: ({node, ...props}: any) => <ul className="list-disc list-inside mb-2 space-y-1" {...props} />,
+                        ol: ({node, ...props}: any) => <ol className="list-decimal list-inside mb-2 space-y-1" {...props} />,
+                        li: ({node, ...props}: any) => <li className="ml-2" {...props} />,
+                        strong: ({node, ...props}: any) => <span className="font-bold text-white" {...props} />,
+                        a: ({node, ...props}: any) => <a className="underline hover:text-cyan-300 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
+                  </div>
                 </div>
               </div>
             ))}

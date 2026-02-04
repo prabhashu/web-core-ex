@@ -1,11 +1,14 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Mail, Phone, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -22,7 +25,7 @@ export default function Navbar() {
   // Close menu on route change
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [pathname]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -32,18 +35,18 @@ export default function Navbar() {
     { name: 'Contact', path: '/contact' }
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   // --- FASTER Animation Variants ---
   const menuVars = {
     initial: { scaleY: 0 },
     animate: { 
       scaleY: 1, 
-      transition: { duration: 0.3, ease: [0.12, 0, 0.39, 0] } 
+      transition: { duration: 0.3, ease: [0.12, 0, 0.39, 0] as any } 
     },
     exit: { 
       scaleY: 0, 
-      transition: { delay: 0.1, duration: 0.3, ease: [0.22, 1, 0.36, 1] } 
+      transition: { delay: 0.1, duration: 0.3, ease: [0.22, 1, 0.36, 1] as any } 
     }
   };
 
@@ -65,7 +68,7 @@ export default function Navbar() {
             
             {/* Logo */}
             <Link 
-              to="/" 
+              href="/" 
               className="flex items-center gap-2 focus:outline-none group"
               onClick={() => setIsOpen(false)}
             >
@@ -79,7 +82,7 @@ export default function Navbar() {
               {navLinks.map(link => (
                 <Link 
                   key={link.path} 
-                  to={link.path} 
+                  href={link.path} 
                   className={`text-sm font-medium transition-all duration-300 hover:text-cyan-400 whitespace-nowrap focus:outline-none ${isActive(link.path) ? 'text-cyan-400' : 'text-white/90'}`}
                 >
                   {link.name}
@@ -89,7 +92,7 @@ export default function Navbar() {
 
             {/* CTA Button - Desktop */}
             <div className="flex items-center gap-4">
-                <Link to="/contact" className="hidden lg:block focus:outline-none">
+                <Link href="/contact" className="hidden lg:block focus:outline-none">
                 <button className="px-4 xl:px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 whitespace-nowrap focus:outline-none">
                     Get Started
                 </button>
@@ -139,7 +142,7 @@ export default function Navbar() {
                   <div key={link.path} className="overflow-hidden">
                     <motion.div variants={mobileLinkVars}>
                       <Link 
-                        to={link.path} 
+                        href={link.path} 
                         onClick={() => setIsOpen(false)}
                         className={`group flex items-center justify-between text-2xl font-bold tracking-tight py-3 border-b border-white/5 transition-all duration-300 ${isActive(link.path) ? 'text-cyan-400 pl-2' : 'text-white hover:text-white/80'}`}
                       >
@@ -177,7 +180,7 @@ export default function Navbar() {
 
                 {/* Big CTA Button */}
                 <Link 
-                    to="/contact" 
+                    href="/contact" 
                     onClick={() => setIsOpen(false)}
                     className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg shadow-lg shadow-cyan-500/20 active:scale-95 transition-transform"
                 >

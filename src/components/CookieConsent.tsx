@@ -1,14 +1,33 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cookie } from 'lucide-react';
+import { consent } from '../lib/gtm';
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Check if user has already accepted
-    const consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
+    const consentStatus = localStorage.getItem('cookieConsent');
+    
+    if (consentStatus === 'true') {
+      consent({
+        analytics_storage: 'granted',
+        ad_storage: 'granted'
+      });
+    } else if (consentStatus === 'false') {
+      consent({
+        analytics_storage: 'denied',
+        ad_storage: 'denied'
+      });
+    } else {
+      // Default to denied if not set
+      consent({
+        analytics_storage: 'denied',
+        ad_storage: 'denied'
+      });
       // Delay showing it slightly for better UX
       setTimeout(() => setIsVisible(true), 2000);
     }
@@ -16,6 +35,19 @@ export default function CookieConsent() {
 
   const acceptCookies = () => {
     localStorage.setItem('cookieConsent', 'true');
+    consent({
+      analytics_storage: 'granted',
+      ad_storage: 'granted'
+    });
+    setIsVisible(false);
+  };
+
+  const declineCookies = () => {
+    localStorage.setItem('cookieConsent', 'false');
+    consent({
+      analytics_storage: 'denied',
+      ad_storage: 'denied'
+    });
     setIsVisible(false);
   };
 
@@ -42,7 +74,7 @@ export default function CookieConsent() {
 
             <div className="flex gap-3">
               <button 
-                onClick={() => setIsVisible(false)}
+                onClick={declineCookies}
                 className="px-4 py-2 rounded-full text-white/60 hover:text-white text-sm font-medium transition-colors"
               >
                 Decline
