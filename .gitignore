@@ -7,11 +7,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies (Junk files)
+# Dependencies
 node_modules
 dist
 dist-ssr
 *.local
+
+# Next.js
+.next
+out
+build
 
 # Editor directories and files
 .vscode/*
@@ -24,9 +29,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# Local Netlify folder (Build artifacts)
+# Local Netlify folder
 .netlify
 
-# Environment Variables (Security)
+# Environment Variables
 .env
 .env.local
